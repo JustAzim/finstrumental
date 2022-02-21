@@ -11,9 +11,10 @@
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>KazToy</title>
+    <title>Finstrumental</title>
 </head>
 <body>
-<div id="app">123</div>
+<div id="app"></div>
+<script th:src="${isDevMode} ? 'http://localhost:8000/main.js' : '/js/main.js'"></script>
 </body>
 </html>
