@@ -13,7 +13,7 @@ import java.util.*;
 class FinstrumentalApplicationTests {
 
     @Test
-    void contextLoads() throws IOException {
+    void contextLoads() {
 
         String url = "https://finviz.com/quote.ashx?t=TSLA";
         try {
@@ -27,19 +27,10 @@ class FinstrumentalApplicationTests {
                 map.put(label, value);
                 i += 2;
             }
-            System.out.println(map.toString());
+            System.out.println(map);
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        URLConnection yc = yahoo.openConnection();
-//        BufferedReader in = new BufferedReader(
-//                new InputStreamReader(
-//                        yc.getInputStream()));
-//        String inputLine;
-//
-//        while ((inputLine = in.readLine()) != null)
-//            System.out.println(inputLine);
-//        in.close();
     }
 
 }
