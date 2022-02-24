@@ -13,7 +13,7 @@ import java.util.*;
 @Component
 public class Mfi {
 
-    final String  loginFormUrl = "https://www.magicformulainvesting.com/Account/LogOn";
+    final String loginFormUrl = "https://www.magicformulainvesting.com/Account/LogOn";
 
     final String getScreenUrl = "https://www.magicformulainvesting.com/Screening/StockScreening";
 
@@ -22,6 +22,8 @@ public class Mfi {
 
     @Value("${finstrumental.mfi.password}")
     private String password;
+
+    Connection.Response authDoc;
 
     public List<MFIdataModel> getData(int cap) throws IOException {
         List<MFIdataModel> list = new ArrayList<>();
@@ -41,27 +43,41 @@ public class Mfi {
     }
 
     public Document getMFIDoc(int cap) throws IOException {
-        Connection.Response loginResponse = getAuthResponse();
         //GET a document with post request
-        Connection.Response document = Jsoup.connect(getScreenUrl)
-                .method(Connection.Method.POST)
-                .data("MinimumMarketCap", String.valueOf(cap))
-                .data("Select30", "true")
-                .data("stocks", "Get Stocks")
-                .cookies(loginResponse.cookies())
-                .timeout(100000)
-                .execute();
-        return document.parse();
+        try {
+            Connection.Response document = Jsoup.connect(getScreenUrl)
+                    .method(Connection.Method.POST)
+                    .data("MinimumMarketCap", String.valueOf(cap))
+                    .data("Select30", "true")
+                    .data("stocks", "Get Stocks")
+                    .cookies(authDoc.cookies())
+                    .timeout(100000)
+                    .execute();
+            return document.parse();
+
+        }
+        catch (Exception e) {
+            getAuthResponse();
+            Connection.Response document = Jsoup.connect(getScreenUrl)
+                    .method(Connection.Method.POST)
+                    .data("MinimumMarketCap", String.valueOf(cap))
+                    .data("Select30", "true")
+                    .data("stocks", "Get Stocks")
+                    .cookies(authDoc.cookies())
+                    .timeout(100000)
+                    .execute();
+            return document.parse();
+        }
     }
 
-    private Connection.Response getAuthResponse() throws IOException {
+    private void getAuthResponse() throws IOException {
         // get login form
         Connection.Response loginForm = Jsoup.connect(loginFormUrl)
                 .method(Connection.Method.GET)
                 .execute();
 
         // POST login data
-        return Jsoup.connect(loginFormUrl).
+        authDoc = Jsoup.connect(loginFormUrl).
                 method(Connection.Method.POST)
                 .data("Email", username)
                 .data("Password", password)
