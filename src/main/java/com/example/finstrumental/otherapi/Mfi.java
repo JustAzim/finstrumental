@@ -23,9 +23,9 @@ public class Mfi {
     @Value("${finstrumental.mfi.password}")
     private String password;
 
-    public List<MFIdataModel> getData() throws IOException {
+    public List<MFIdataModel> getData(int cap) throws IOException {
         List<MFIdataModel> list = new ArrayList<>();
-        Document doc = getMFIDoc();
+        Document doc = getMFIDoc(cap);
         Elements t = doc.select("table.screeningdata td");
         int i = 0;
         while (i < t.size()) {
@@ -40,12 +40,12 @@ public class Mfi {
         return list;
     }
 
-    public Document getMFIDoc() throws IOException {
+    public Document getMFIDoc(int cap) throws IOException {
         Connection.Response loginResponse = getAuthResponse();
         //GET a document with post request
         Connection.Response document = Jsoup.connect(getScreenUrl)
                 .method(Connection.Method.POST)
-                .data("MinimumMarketCap", "500")
+                .data("MinimumMarketCap", String.valueOf(cap))
                 .data("Select30", "true")
                 .data("stocks", "Get Stocks")
                 .cookies(loginResponse.cookies())

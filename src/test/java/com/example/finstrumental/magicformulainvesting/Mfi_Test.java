@@ -16,7 +16,7 @@ public class Mfi_Test {
 
     @Test
     public void test() throws IOException {
-        List<MFIdataModel> list = mfi.getData();
+        List<MFIdataModel> list = mfi.getData(50);
         System.out.println(list);
     }
 }

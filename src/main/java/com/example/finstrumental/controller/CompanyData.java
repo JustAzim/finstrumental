@@ -20,8 +20,8 @@ public class CompanyData {
         return Finvizz.getCompanyData(ticker);
     }
 
-    @GetMapping("mfi")
-    public List<MFIdataModel> getMfiData() throws IOException {
-        return mfi.getData();
+    @GetMapping("mfi/{cap}")
+    public List<MFIdataModel> getMfiData(@PathVariable("cap") int cap) throws IOException {
+        return mfi.getData(cap);
     }
 }
