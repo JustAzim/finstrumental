@@ -8,6 +8,8 @@ import org.jsoup.select.*;
 import java.util.*;
 
 public class Finvizz {
+    public static final String PriceToSale = "P/S";
+    public static final String PriceToEarn = "P/E";
 
     public static Map<String, String> getCompanyData(String ticker) {
 

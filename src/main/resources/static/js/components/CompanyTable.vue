@@ -1,5 +1,6 @@
 <template>
     <v-container>
+
         <v-data-table
             :headers="headers"
             :items="companyList"
@@ -12,10 +13,28 @@
 <script>
 export default {
     props: {
-        companyList: {}
+        companyList: [],
     },
     data() {
         return {
+            psComparatorValue: null,
+            peComparatorValue: null,
+            psComparator: null,
+            peComparator: null,
+            itemsComparators: [
+                {
+                    text: "<",
+                    value: -1
+                },
+                {
+                    text: "=",
+                    value: 0
+                },
+                {
+                    text: ">",
+                    value: 1
+                }
+            ],
             headers: [
                 {
                     text: "Ticker",
@@ -36,10 +55,19 @@ export default {
                 {
                     text: "Most Recent Quater Data",
                     value: "mostRecentQuaterData"
+                },
+                {
+                    text: "Price To Sale",
+                    value: "priceToSale"
+                },
+                {
+                    text: "Price To Earn",
+                    value: "priceToEarn"
                 }
             ]
         }
-    }
+    },
+
 }
 </script>
 

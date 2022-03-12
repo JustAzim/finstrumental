@@ -24,6 +24,12 @@ public class CompanyData {
 
     @GetMapping("mfi/{cap}")
     public List<MFIdataModel> getMfiData(@PathVariable("cap") int cap) throws IOException {
-        return mfi.getData(cap);
+        List<MFIdataModel> mfiDataList = mfi.getData(cap);
+        for (MFIdataModel data : mfiDataList) {
+            Map<String, String> companyData = Finvizz.getCompanyData(data.getTicker());
+            data.addPrices(companyData.get(Finvizz.PriceToSale), companyData.get(Finvizz.PriceToEarn));
+        }
+
+        return mfiDataList;
     }
 }

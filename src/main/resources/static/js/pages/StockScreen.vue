@@ -21,6 +21,7 @@
         <v-row>
             <v-divider inset class="my-5"/>
         </v-row>
+        <company-table-filter v-if="showTable" v-model="companyList"/>
         <company-table v-if="showTable" :company-list="companyList"/>
         <v-snackbar
             v-model="snackbar"
@@ -45,9 +46,10 @@
 <script>
 import {http} from "../http-common"
 import CompanyTable from "../components/CompanyTable.vue"
+import CompanyTableFilter from "../components/CompanyTableFIlter.vue"
 
 export default {
-    components: {CompanyTable},
+    components: {CompanyTable, CompanyTableFilter},
     data() {
         return {
             cap: 50,
