@@ -17,10 +17,10 @@ public class Mfi {
 
     final String getScreenUrl = "https://www.magicformulainvesting.com/Screening/StockScreening";
 
-    @Value("${finstrumental.mfi.username}")
+    @Value("${mfiusername}")
     private String username;
 
-    @Value("${finstrumental.mfi.password}")
+    @Value("${mfipassword}")
     private String password;
 
     Connection.Response authDoc;
@@ -43,6 +43,9 @@ public class Mfi {
     }
 
     public Document getMFIDoc(int cap) throws IOException {
+        if(authDoc == null) {
+            getAuthResponse();
+        }
         //GET a document with post request
         try {
             Connection.Response document = Jsoup.connect(getScreenUrl)
