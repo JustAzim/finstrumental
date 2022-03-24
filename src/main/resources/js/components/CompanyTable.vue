@@ -17,24 +17,6 @@ export default {
     },
     data() {
         return {
-            psComparatorValue: null,
-            peComparatorValue: null,
-            psComparator: null,
-            peComparator: null,
-            itemsComparators: [
-                {
-                    text: "<",
-                    value: -1
-                },
-                {
-                    text: "=",
-                    value: 0
-                },
-                {
-                    text: ">",
-                    value: 1
-                }
-            ],
             headers: [
                 {
                     text: "Ticker",
