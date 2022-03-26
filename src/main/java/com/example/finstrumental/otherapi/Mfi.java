@@ -51,7 +51,7 @@ public class Mfi {
             Connection.Response document = Jsoup.connect(getScreenUrl)
                     .method(Connection.Method.POST)
                     .data("MinimumMarketCap", String.valueOf(cap))
-                    .data("Select30", "true")
+                    .data("Select30", "false")
                     .data("stocks", "Get Stocks")
                     .cookies(authDoc.cookies())
                     .timeout(100000)
