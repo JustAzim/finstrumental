@@ -26,7 +26,7 @@ public class Mfi {
     Connection.Response authDoc;
 
     public List<MFIdataModel> getData(int cap) throws IOException {
-        List<MFIdataModel> list = new ArrayList<>();
+        List<MFIdataModel> list = new LinkedList<>();
         Document doc = getMFIDoc(cap);
         Elements t = doc.select("table.screeningdata td");
         int i = 0;
