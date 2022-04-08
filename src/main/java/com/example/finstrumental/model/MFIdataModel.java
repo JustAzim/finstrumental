@@ -13,22 +13,14 @@ public class MFIdataModel {
 
     String priceFrom;
 
-    String mostRecentQuaterData;
+    String mostRecentQuarterData;
 
-    String priceToSale;
-
-    String priceToEarn;
-
-    public MFIdataModel(String companyName, String ticker, String marketCap, String priceFrom, String mostRecentQuaterData) {
+    public MFIdataModel(String companyName, String ticker, String marketCap, String priceFrom, String mostRecentQuarterData) {
         this.companyName = companyName;
         this.ticker = ticker;
         this.marketCap = marketCap;
         this.priceFrom = priceFrom;
-        this.mostRecentQuaterData = mostRecentQuaterData;
+        this.mostRecentQuarterData = mostRecentQuarterData;
     }
 
-    public void addPrices(String ps, String pe) {
-        this.setPriceToSale(ps);
-        this.setPriceToEarn(pe);
-    }
 }

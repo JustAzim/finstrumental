@@ -17,41 +17,42 @@ public class CompanyData {
     private final Mfi mfi;
 
     @NonNull
-    private final YahooFinance yahooFinance;
+    private final Finvizz finvizz;
 
     @GetMapping("{ticker}")
     public Map<String, String> getCompanyData(@PathVariable("ticker") String ticker) {
-        return Finvizz.getCompanyData(ticker);
+        return finvizz.getCompanyData(ticker);
     }
 
     @GetMapping("mfi/{cap}")
-    public List<MFIdataModel> getMfiData(@PathVariable("cap") int cap) throws IOException {
-        List<Map<String, Object>> allQuotes = new LinkedList<>();
+    public List<ScreenOneModel> getMfiData(@PathVariable("cap") int cap) throws IOException {
+        List<FinvizDataModel> allQuotes = new LinkedList<>();
         Set<String> tickers = new HashSet<>();
         List<MFIdataModel> mfiDataList = mfi.getData(cap);
         for (MFIdataModel data : mfiDataList) {
             tickers.add(data.getTicker());
-            if (tickers.size() >= 10) {
-                List<Map<String, Object>> quotes = yahooFinance.getQuotes(tickers);
+            if (tickers.size() >= 20) {
+                List<FinvizDataModel> quotes = finvizz.getQuotes(tickers);
                 allQuotes.addAll(quotes);
                 tickers.clear();
             }
         }
         if (tickers.size() > 0) {
-            List<Map<String, Object>> quotes = yahooFinance.getQuotes(tickers);
+            List<FinvizDataModel> quotes = finvizz.getQuotes(tickers);
             allQuotes.addAll(quotes);
         }
-
-        Iterator<MFIdataModel> mfiList = mfiDataList.iterator();
-        MFIdataModel mfi = mfiList.next();
-        for (Map<String, Object> data : allQuotes) {
-            while (!mfi.getTicker().equals(data.get("symbol"))) {
-                mfi = mfiList.next();
+        LinkedList<ScreenOneModel> viewModelList = new LinkedList<>();
+        for (FinvizDataModel quotes : allQuotes) {
+            for (MFIdataModel mfi : mfiDataList) {
+                if (mfi.getTicker().equals(quotes.getTicker())) {
+                    ScreenOneModel model = new ScreenOneModel(mfi, quotes);
+                    viewModelList.add(model);
+                    break;
+                }
             }
-            mfi.addPrices(data.get("epsForward").toString(), data.get("forwardPE").toString());
         }
 
 
-        return mfiDataList;
+        return viewModelList;
     }
 }

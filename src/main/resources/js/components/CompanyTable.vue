@@ -35,8 +35,8 @@ export default {
                     value: "priceFrom"
                 },
                 {
-                    text: "Most Recent Quater Data",
-                    value: "mostRecentQuaterData"
+                    text: "Most Recent Quarter Data",
+                    value: "mostRecentQuarterData"
                 },
                 {
                     text: "Price To Sale",
@@ -45,7 +45,15 @@ export default {
                 {
                     text: "Price To Earn",
                     value: "priceToEarn"
-                }
+                },
+                {
+                    text: "Debt/Eq",
+                    value: "debtEq"
+                },
+                {
+                    text: "Price",
+                    value: "price"
+                },
             ]
         }
     },
