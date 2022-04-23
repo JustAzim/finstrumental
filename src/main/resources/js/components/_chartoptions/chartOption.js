@@ -1,3 +1,5 @@
+
+
 const posList = [
     'left',
     'right',
@@ -83,7 +85,7 @@ const labelOption = {
     verticalAlign: app.config.verticalAlign,
     rotate: app.config.rotate,
     formatter: '{c}  {name|{a}}',
-    fontSize: 16,
+    fontSize: 9,
     rich: {
         name: {}
     }
@@ -91,15 +93,12 @@ const labelOption = {
 ///
 
 
-export let option = {
+let option = {
     tooltip: {
         trigger: 'axis',
         axisPointer: {
             type: 'shadow'
         }
-    },
-    legend: {
-        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
     },
     toolbox: {
         show: true,
@@ -114,13 +113,6 @@ export let option = {
             saveAsImage: { show: true }
         }
     },
-    xAxis: [
-        {
-            type: 'category',
-            axisTick: { show: false },
-            data: ['2012', '2013', '2014', '2015', '2016']
-        }
-    ],
     yAxis: [
         {
             type: 'value'
@@ -166,3 +158,56 @@ export let option = {
         }
     ]
 };
+function getCommonOpt(indicators, json) {
+    json.data[indicators[0]] = json.data[indicators[0]].map(x => x = x.replace(/,/g, ''))
+    json.data[indicators[1]] = json.data[indicators[1]].map(x => x = x.replace(/,/g, ''))
+    let series = [
+        {
+            name: indicators[0],
+            type: 'bar',
+            barGap: 0,
+            label: labelOption,
+            emphasis: {
+                focus: 'series'
+            },
+            data: json.data[indicators[0]]
+        },
+        {
+            name: indicators[1],
+            type: 'bar',
+            label: labelOption,
+            emphasis: {
+                focus: 'series'
+            },
+            data: json.data[indicators[1]]
+        },
+    ]
+    let xAxis = [
+        {
+            type: 'category',
+            axisTick: { show: false },
+            data: json.data['Period End Date']
+        }
+    ]
+    let opt = Object.assign(option)
+    opt.series = series
+    opt.xAxis = xAxis
+    opt.legend = {
+        data: indicators
+    }
+    return opt
+}
+
+export function getStatementsOption(json) {
+    return getCommonOpt(['Total Revenue','Net Income'], json)
+
+
+}
+
+export function getgetBalanceSheetOption(json) {
+    return getCommonOpt(['Total Assets','Total Liabilities'], json)
+}
+
+export function getCashFlowOptin(json) {
+    return getCommonOpt(['Net Income','Net Change in Cash'], json)
+}

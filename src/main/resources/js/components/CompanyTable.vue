@@ -5,7 +5,7 @@
             :headers="headers"
             :items="companyList"
             :items-per-page="50"
-            @click:row="rowClick"
+            @update:expanded="onExpanded"
             class="elevation-1"
             show-expand
             single-expand
@@ -13,10 +13,9 @@
             item-key="ticker"
         >
             <template v-slot:expanded-item="{ headers, item }">
-                <td :colspan="headers.length">
-                    <company-chart/>
+                <td :colspan="headers.length" :key="item.ticker">
+                    <company-chart :ticker="selectedTicker"/>
                 </td>
-
             </template>
 
 
@@ -78,10 +77,14 @@ export default {
         }
     },
     methods: {
-        rowClick(item) {
-            this.selectedTicker = item.ticker
-            this.dialog = true
-        }
+      onExpanded(items) {
+        console.log(items)
+          if(items.length > 0) {
+            let c = items[0]
+            if(this.selectedTicker === c.ticker) return
+            this.selectedTicker = c.ticker
+          }
+      }
     }
 
 }
