@@ -1,5 +1,3 @@
-
-
 const posList = [
     'left',
     'right',
@@ -84,8 +82,8 @@ const labelOption = {
     align: app.config.align,
     verticalAlign: app.config.verticalAlign,
     rotate: app.config.rotate,
-    formatter: '{c}  {name|{a}}',
-    fontSize: 9,
+    formatter: '{c}',
+    fontSize: 12,
     rich: {
         name: {}
     }
@@ -106,11 +104,11 @@ let option = {
         left: 'right',
         top: 'center',
         feature: {
-            mark: { show: true },
-            dataView: { show: true, readOnly: false },
-            magicType: { show: true, type: ['line', 'bar', 'stack'] },
-            restore: { show: true },
-            saveAsImage: { show: true }
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar', 'stack']},
+            restore: {show: true},
+            saveAsImage: {show: true}
         }
     },
     yAxis: [
@@ -158,6 +156,7 @@ let option = {
         }
     ]
 };
+
 function getCommonOpt(indicators, json) {
     json.data[indicators[0]] = json.data[indicators[0]].map(x => x = x.replace(/,/g, ''))
     json.data[indicators[1]] = json.data[indicators[1]].map(x => x = x.replace(/,/g, ''))
@@ -185,8 +184,9 @@ function getCommonOpt(indicators, json) {
     let xAxis = [
         {
             type: 'category',
-            axisTick: { show: false },
-            data: json.data['Period End Date']
+            interval: 1,
+            data: json.data['Period End Date'],
+            axisLabel: {fontSize:9}
         }
     ]
     let opt = Object.assign(option)
@@ -199,15 +199,15 @@ function getCommonOpt(indicators, json) {
 }
 
 export function getStatementsOption(json) {
-    return getCommonOpt(['Total Revenue','Net Income'], json)
+    return getCommonOpt(['Total Revenue', 'Net Income'], json)
 
 
 }
 
 export function getgetBalanceSheetOption(json) {
-    return getCommonOpt(['Total Assets','Total Liabilities'], json)
+    return getCommonOpt(['Total Assets', 'Total Liabilities'], json)
 }
 
 export function getCashFlowOptin(json) {
-    return getCommonOpt(['Net Income','Net Change in Cash'], json)
+    return getCommonOpt(['Net Income', 'Net Change in Cash'], json)
 }
