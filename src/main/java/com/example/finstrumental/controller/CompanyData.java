@@ -55,4 +55,20 @@ public class CompanyData {
 
         return viewModelList;
     }
+
+    @GetMapping("chart/getStatements/{ticker}")
+    public Map<String, Object> getStatements(@PathVariable("ticker") String ticker) throws IOException {
+        return finvizz.getIncomeStatement(ticker);
+    }
+
+    @GetMapping("chart/getBalanceSheet/{ticker}")
+    public Map<String, Object> getBalanceSheet(@PathVariable("ticker") String ticker) throws IOException {
+        return finvizz.getBalanceSheet(ticker);
+    }
+
+    @GetMapping("chart/getCashFlow/{ticker}")
+    public Map<String, Object> GetCashFlow(@PathVariable("ticker") String ticker) throws IOException {
+        return finvizz.getCashFlow(ticker);
+    }
+
 }

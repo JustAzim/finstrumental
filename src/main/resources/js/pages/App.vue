@@ -3,17 +3,17 @@
         <v-app-bar dense app>
             <v-toolbar-title>Finstrumental</v-toolbar-title>
         </v-app-bar>
-        <v-main>
-            <v-row>
-                <v-col :cols="sideWidth"/>
-                <v-col>
-                    <v-container fluid>
+        <v-main class="px-sm-1">
+<!--            <v-row>-->
+<!--                <v-col :cols="sideWidth"/>-->
+<!--                <v-col>-->
+                    <v-container>
                         <router-view/>
                     </v-container>
-                </v-col>
-                <v-col :cols="sideWidth"/>
+<!--                </v-col>-->
+<!--                <v-col :cols="sideWidth"/>-->
 
-            </v-row>
+<!--            </v-row>-->
         </v-main>
 
         <v-footer app>

@@ -5,18 +5,38 @@
             :headers="headers"
             :items="companyList"
             :items-per-page="50"
+            @click:row="rowClick"
             class="elevation-1"
-        ></v-data-table>
+            show-expand
+            single-expand
+            :expanded.sync="expanded"
+            item-key="ticker"
+        >
+            <template v-slot:expanded-item="{ headers, item }">
+                <td :colspan="headers.length">
+                    <company-chart/>
+                </td>
+
+            </template>
+
+
+        </v-data-table>
     </v-container>
 </template>
 
 <script>
+import CompanyChart from "./CompanyChart.vue"
+
 export default {
+    components: {CompanyChart},
     props: {
         companyList: [],
     },
     data() {
         return {
+            dialog: false,
+            selectedTicker: null,
+            expanded: [],
             headers: [
                 {
                     text: "Ticker",
@@ -57,6 +77,12 @@ export default {
             ]
         }
     },
+    methods: {
+        rowClick(item) {
+            this.selectedTicker = item.ticker
+            this.dialog = true
+        }
+    }
 
 }
 </script>
