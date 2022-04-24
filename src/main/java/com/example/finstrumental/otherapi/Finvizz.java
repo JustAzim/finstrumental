@@ -94,7 +94,7 @@ public class Finvizz {
     }
 
     public Map<String, Object> getJson(String method, String ticker) throws IOException {
-        StringBuilder urlString = new StringBuilder("https://finviz.com/api/statement.ashx?t=TSLA&s=CA");
+        StringBuilder urlString = new StringBuilder("https://finviz.com/api/statement.ashx?t=");
         urlString.append(ticker);
         urlString.append("&s=");
         urlString.append(method);
