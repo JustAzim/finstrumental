@@ -158,6 +158,7 @@ let option = {
 };
 
 function getCommonOpt(indicators, json) {
+    removeTTM(json, indicators)
     json.data[indicators[0]] = json.data[indicators[0]].map(x => x = x.replace(/,/g, ''))
     json.data[indicators[1]] = json.data[indicators[1]].map(x => x = x.replace(/,/g, ''))
     let series = [
@@ -204,10 +205,22 @@ export function getStatementsOption(json) {
 
 }
 
-export function getgetBalanceSheetOption(json) {
+export function getBalanceSheetOption(json) {
     return getCommonOpt(['Total Assets', 'Total Liabilities'], json)
 }
 
 export function getCashFlowOptin(json) {
-    return getCommonOpt(['Net Income', 'Net Change in Cash'], json)
+    return getCommonOpt(['Cash', 'Net Change in Cash'], json)
+}
+
+function removeTTM(json, indicators) {
+    let data = json.data
+    let index = data["Period End Date"].indexOf("TTM")
+
+    if(index >= 0) {
+        data["Period End Date"].splice(index,1)
+        for(let ind of indicators) {
+            data[ind].splice(index,1)
+        }
+    }
 }

@@ -78,7 +78,6 @@ export default {
     },
     methods: {
       onExpanded(items) {
-        console.log(items)
           if(items.length > 0) {
             let c = items[0]
             if(this.selectedTicker === c.ticker) return
