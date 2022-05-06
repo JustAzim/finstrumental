@@ -2,6 +2,7 @@ package com.example.finstrumental.controller;
 
 import com.example.finstrumental.model.*;
 import com.example.finstrumental.otherapi.*;
+import com.example.finstrumental.service.*;
 import lombok.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,9 @@ public class CompanyData {
 
     @NonNull
     private final Finvizz finvizz;
+
+    @NonNull
+    private final ChartService chartService;
 
     @GetMapping("{ticker}")
     public Map<String, String> getCompanyData(@PathVariable("ticker") String ticker) {
@@ -70,5 +74,11 @@ public class CompanyData {
     public Map<String, Object> GetCashFlow(@PathVariable("ticker") String ticker) throws IOException {
         return finvizz.getCashFlow(ticker);
     }
+
+    @GetMapping("chart/getDivedents/{ticker}")
+    public Map<String, Object> GetDivedents(@PathVariable("ticker") String ticker) throws IOException {
+        return chartService.getDivedents(ticker);
+    }
+
 
 }
