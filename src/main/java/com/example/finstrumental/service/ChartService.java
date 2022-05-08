@@ -15,9 +15,9 @@ public class ChartService {
     @NonNull
     private final YahooFinance yahooFinance;
 
-    public Map<String, Object> getDivedents(String ticker) throws IOException {
+    public Map<String, Object> getDividents(String ticker) throws IOException {
         LocalDate dend = LocalDate.now();
         LocalDate dbeg = dend.minusYears(10);
-        return yahooFinance.getDivedents(ticker, dbeg, dend);
+        return yahooFinance.getDividents(ticker, dbeg, dend);
     }
 }

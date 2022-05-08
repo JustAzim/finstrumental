@@ -9,26 +9,14 @@
             </v-col>
         </v-row>
         <v-row style="height: 400px">
-            <v-col/>
+            <v-col>
+              <v-chart key="cc" ref="dividentsChart" class="chart-c"/>
+            </v-col>
             <v-col>
                 <v-chart key="cc" ref="cashFlowChart" class="chart-c"/>
             </v-col>
         </v-row>
     </v-container>
-    <!--  <div style="width: 100%; height: 900px">-->
-    <!--    <div style="width: 100%; height: 300px">-->
-    <!--      <v-chart key="sc" ref="statementsChart" class="chart-a"/>-->
-    <!--    </div>-->
-    <!--    <div style="width: 100%; height: 300px">-->
-
-    <!--      <v-chart key="bc" ref="balanceSheetChart" class="chart-b"/>-->
-    <!--    </div>-->
-
-    <!--    <div style="width: 100%; height: 300px">-->
-
-    <!--      <v-chart key="cc" ref="cashFlowChart" class="chart-c"/>-->
-    <!--    </div>-->
-    <!--  </div>-->
 </template>
 
 <script>
@@ -36,6 +24,7 @@ import "echarts";
 import VChart from "vue-echarts";
 import {getBalanceSheetOption, getStatementsOption, getCashFlowOptin} from "./_chartoptions/chartOption";
 import {http} from "../http-common";
+import {getDividentsOptions} from "./_chartoptions/dividentsChartOption";
 
 export default {
     components: {
@@ -89,6 +78,14 @@ export default {
                 console.log(reason)
             })
 
+
+          // dividents
+          http.get(`companyData/chart/getDividents/${this.ticker}`).then(res => {
+
+            this.$refs.dividentsChart.setOption(getDividentsOptions(res.data))
+          }).catch((reason) => {
+            console.log(reason)
+          })
 
         },
     },

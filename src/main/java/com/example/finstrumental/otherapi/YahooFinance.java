@@ -12,7 +12,7 @@ import java.util.*;
 @Component
 public class YahooFinance {
 
-    public Map<String, Object> getDivedents(String ticker, LocalDate dbeg, LocalDate dend) throws IOException {
+    public Map<String, Object> getDividents(String ticker, LocalDate dbeg, LocalDate dend) throws IOException {
 //        String ticker = "HPQ";
 //        LocalDate dend = LocalDate.now();
 //        LocalDate dbeg = dend.minusYears(10);

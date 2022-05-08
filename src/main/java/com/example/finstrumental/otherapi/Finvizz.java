@@ -30,6 +30,7 @@ public class Finvizz {
                 .method(Connection.Method.GET)
                 .data("v", "152")
                 .data("t", tickers)
+//                .data("c", "1,7,10,38,65,4,14,39")
                 .data("c", "1,7,10,38,65")
                 .timeout(100000)
                 .execute();

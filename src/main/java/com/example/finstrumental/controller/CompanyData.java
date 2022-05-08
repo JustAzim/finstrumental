@@ -75,9 +75,9 @@ public class CompanyData {
         return finvizz.getCashFlow(ticker);
     }
 
-    @GetMapping("chart/getDivedents/{ticker}")
-    public Map<String, Object> GetDivedents(@PathVariable("ticker") String ticker) throws IOException {
-        return chartService.getDivedents(ticker);
+    @GetMapping("chart/getDividents/{ticker}")
+    public Map<String, Object> GetDividents(@PathVariable("ticker") String ticker) throws IOException {
+        return chartService.getDividents(ticker);
     }
 
 
