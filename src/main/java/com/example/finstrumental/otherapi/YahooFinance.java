@@ -13,9 +13,6 @@ import java.util.*;
 public class YahooFinance {
 
     public Map<String, Object> getDividents(String ticker, LocalDate dbeg, LocalDate dend) throws IOException {
-//        String ticker = "HPQ";
-//        LocalDate dend = LocalDate.now();
-//        LocalDate dbeg = dend.minusYears(10);
         String period2 = String.valueOf(dend.toEpochSecond(LocalTime.of(0,0), ZoneOffset.ofHours(0)));
         String period1 = String.valueOf(dbeg.toEpochSecond(LocalTime.of(0,0), ZoneOffset.ofHours(0)));
 

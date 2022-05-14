@@ -42,20 +42,8 @@ export default {
                     value: "ticker"
                 },
                 {
-                    text: "Company Name",
-                    value: "companyName"
-                },
-                {
                     text: "Market Cap ($ Millions)",
                     value: "marketCap"
-                },
-                {
-                    text: "Price From",
-                    value: "priceFrom"
-                },
-                {
-                    text: "Most Recent Quarter Data",
-                    value: "mostRecentQuarterData"
                 },
                 {
                     text: "Price To Sale",
@@ -73,6 +61,27 @@ export default {
                     text: "Price",
                     value: "price"
                 },
+                {
+                    text: "Divident Yield(%)",
+                    value: "dividentYield"
+                },
+                {
+                    text: "Gross Margin(%)",
+                    value: "grossMargin"
+                },
+                {
+                    text: "Sector",
+                    value: "sector"
+                },
+                {
+                    text: "Country",
+                    value: "country"
+                },
+                {
+                    text: "Insider Own(%)",
+                    value: "insiderOwn"
+                },
+
             ]
         }
     },

@@ -30,8 +30,7 @@ public class Finvizz {
                 .method(Connection.Method.GET)
                 .data("v", "152")
                 .data("t", tickers)
-//                .data("c", "1,7,10,38,65,4,14,39")
-                .data("c", "1,7,10,38,65")
+                .data("c", "1,3,5,7,10,14,26,38,39,65")
                 .timeout(100000)
                 .execute();
         Document doc = document.parse();
@@ -41,11 +40,16 @@ public class Finvizz {
         int i = 0;
         while (i < t.size()) {
             String ticker = t.get(i++).text();
+            String sector = t.get(i++).text();
+            String country = t.get(i++).text();
             String pe = t.get(i++).text();
             String ps = t.get(i++).text();
+            String dividentYield = t.get(i++).text();
+            String insiderOwn = t.get(i++).text();
             String de = t.get(i++).text();
+            String grossMargin = t.get(i++).text();
             String price = t.get(i++).text();
-            FinvizDataModel model = new FinvizDataModel(ticker, pe, ps, de, price);
+            FinvizDataModel model = new FinvizDataModel(ticker, pe, ps, de, price, dividentYield, grossMargin, sector, country, insiderOwn);
             list.add(model);
         }
 
