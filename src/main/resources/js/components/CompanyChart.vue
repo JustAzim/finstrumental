@@ -43,7 +43,7 @@ export default {
     methods: {
         updateOptions() {
             // statementChart
-            http.get(`companyData/chart/getStatements/${this.ticker}`).then(res => {
+            http.get(`chart/getStatements/${this.ticker}`).then(res => {
 
                 this.$refs.statementsChart.setOption(getStatementsOption(res.data))
             }).catch((reason) => {
@@ -51,13 +51,13 @@ export default {
             })
 
             // balanceSheetChart
-            http.get(`companyData/chart/getBalanceSheet/${this.ticker}`).then(res => {
+            http.get(`chart/getBalanceSheet/${this.ticker}`).then(res => {
 
                 let bs = Object.assign(res.data)
                 this.$refs.balanceSheetChart.setOption(getBalanceSheetOption(res.data))
 
                 // cashflowChart
-                http.get(`companyData/chart/getCashFlow/${this.ticker}`).then(res => {
+                http.get(`chart/getCashFlow/${this.ticker}`).then(res => {
                     let cf = res.data
                     cf.data['Cash'] = []
                     for(let dt of cf.data['Period End Date']) {
@@ -80,7 +80,7 @@ export default {
 
 
           // dividents
-          http.get(`companyData/chart/getDividents/${this.ticker}`).then(res => {
+          http.get(`chart/getDividents/${this.ticker}`).then(res => {
 
             this.$refs.dividentsChart.setOption(getDividentsOptions(res.data))
           }).catch((reason) => {

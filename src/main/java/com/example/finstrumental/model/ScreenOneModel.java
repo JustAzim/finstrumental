@@ -25,10 +25,10 @@ public class ScreenOneModel {
 
     public ScreenOneModel(MFIdataModel mfi, FinvizDataModel finvizz) {
         this.ticker = mfi.ticker;
-        this.companyName = mfi.companyName;
-        this.marketCap = mfi.marketCap;
         this.priceFrom = mfi.priceFrom;
         this.mostRecentQuarterData = mfi.mostRecentQuarterData;
+        this.companyName = finvizz.companyName;
+        this.marketCap = finvizz.marketCap;
         this.priceToSale = finvizz.priceToSale;
         this.priceToEarn = finvizz.priceToEarn;
         this.debtEq = finvizz.debtEq;

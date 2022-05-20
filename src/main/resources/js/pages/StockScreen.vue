@@ -64,7 +64,7 @@ export default {
   methods: {
     getStock() {
       this.loading = true
-      http.get(`companyData/mfi/${this.cap}`).then(res => {
+      http.get(`companyData/getFiftyCompanies/${this.cap}`).then(res => {
         this.filteredCompanyList = this.companyList = res.data
 
       }).catch((reason) => {

@@ -4,16 +4,9 @@
             <v-toolbar-title>Finstrumental</v-toolbar-title>
         </v-app-bar>
         <v-main class="px-sm-1">
-<!--            <v-row>-->
-<!--                <v-col :cols="sideWidth"/>-->
-<!--                <v-col>-->
-                    <v-container>
-                        <router-view/>
-                    </v-container>
-<!--                </v-col>-->
-<!--                <v-col :cols="sideWidth"/>-->
-
-<!--            </v-row>-->
+            <v-container>
+                <router-view/>
+            </v-container>
         </v-main>
 
         <v-footer app>
@@ -21,13 +14,10 @@
                 flat
                 tile
                 width="100%"
-                class="lighten-1 text-center"
+                class="lighten-3 text-center"
             >
                 <v-card-text class="py-1">
                     {{ new Date().getFullYear() }} — <strong>Finstrumental alfa</strong>
-                </v-card-text>
-                <v-card-text class="py-1">
-                    Author: <strong>Azim</strong>
                 </v-card-text>
             </v-card>
         </v-footer>
