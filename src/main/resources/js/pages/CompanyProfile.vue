@@ -48,7 +48,7 @@ import CompanyChart from "../components/CompanyChart.vue"
 import {http} from "../http-common"
 export default {
     name: "CompanyProfile",
-    components: {CompanyChart, DoubleRowLabelValue, VLabel},
+    components: {CompanyChart, DoubleRowLabelValue},
     data() {
         return {
             ticker: this.$route.params.ticker,
