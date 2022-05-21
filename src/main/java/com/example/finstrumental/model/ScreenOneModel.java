@@ -11,8 +11,6 @@ public class ScreenOneModel {
 
     String marketCap;
 
-    String priceFrom;
-
     String mostRecentQuarterData;
 
     String priceToEarn;
@@ -23,9 +21,18 @@ public class ScreenOneModel {
 
     String price;
 
+    String dividentYield;
+
+    String grossMargin;
+
+    String sector;
+
+    String country;
+
+    String insiderOwn;
+
     public ScreenOneModel(MFIdataModel mfi, FinvizDataModel finvizz) {
         this.ticker = mfi.ticker;
-        this.priceFrom = mfi.priceFrom;
         this.mostRecentQuarterData = mfi.mostRecentQuarterData;
         this.companyName = finvizz.companyName;
         this.marketCap = finvizz.marketCap;
@@ -33,5 +40,10 @@ public class ScreenOneModel {
         this.priceToEarn = finvizz.priceToEarn;
         this.debtEq = finvizz.debtEq;
         this.price = finvizz.price;
+        this.dividentYield = finvizz.dividentYield;
+        this.grossMargin = finvizz.grossMargin;
+        this.sector = finvizz.sector;
+        this.country = finvizz.country;
+        this.insiderOwn = finvizz.insiderOwn;
     }
 }

@@ -4,7 +4,7 @@
             <h1>{{ upperTicker }}</h1>
         </v-row>
         <v-row justify="center">
-            <h3>{{ companyData.companyName }}</h3>
+            <h3>{{ companyData.companyName }} || {{companyData.sector}}</h3>
         </v-row>
 
 
@@ -23,9 +23,13 @@
         <v-divider class="mt-3 mb-10"/>
 
         <v-row>
+            <double-row-label-value label="Country" :value="companyData.country"/>
             <double-row-label-value label="Market cap" :value="companyData.marketCap"/>
             <double-row-label-value label="Price to sale" :value="companyData.priceToSale"/>
             <double-row-label-value label="Price to earn" :value="companyData.priceToEarn"/>
+            <double-row-label-value label="Divident yield" :value="companyData.dividentYield"/>
+            <double-row-label-value label="Gross margin" :value="companyData.grossMargin"/>
+            <double-row-label-value label="Insider own" :value="companyData.insiderOwn"/>
             <double-row-label-value label="Debit/Eq" :value="companyData.debtEq"/>
             <double-row-label-value label="Price" :value="companyData.price"/>
         </v-row>
@@ -61,7 +65,7 @@ export default {
             console.log(reason)
 
         }).finally(() => {
-
+            console.log(this.companyData)
         })
 
         http(`companyData/getCompanyDescription/${this.ticker}`).then(res => {

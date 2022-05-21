@@ -2,6 +2,8 @@
     <v-container>
 
         <v-data-table
+            fixed-header
+            height="59vh"
             :headers="headers"
             :items="companyList"
             :items-per-page="50"
@@ -11,11 +13,16 @@
             single-expand
             :expanded.sync="expanded"
             item-key="ticker"
+            hide-default-footer
         >
             <template v-slot:expanded-item="{ headers, item }">
                 <td :colspan="headers.length" :key="item.ticker">
                     <company-chart :ticker="selectedTicker"/>
                 </td>
+            </template>
+
+            <template v-slot:item.ticker="{ item }">
+                <a target="_blank" :href="`#/company/${item.ticker}`">{{ item.ticker }}</a>
             </template>
 
 

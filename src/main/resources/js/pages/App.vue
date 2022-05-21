@@ -2,6 +2,22 @@
     <v-app>
         <v-app-bar dense app>
             <v-toolbar-title>Finstrumental</v-toolbar-title>
+
+<!--            <v-spacer></v-spacer>-->
+<!--                <v-row justify="end" class="mr-5">-->
+<!--                    <v-col cols="4" class="mt-6">-->
+<!--                        <v-text-field-->
+<!--                            v-model="searchTicker"-->
+<!--                            clearable-->
+<!--                            label=""-->
+<!--                            placeholder="Enter ticker"-->
+<!--                            type="text"-->
+<!--                            append-icon="mdi-magnify"-->
+<!--                            @click:append="findCompany"-->
+<!--                            @keydown.enter="findCompany"-->
+<!--                        ></v-text-field>-->
+<!--                    </v-col>-->
+<!--                </v-row>-->
         </v-app-bar>
         <v-main class="px-sm-1">
             <v-container>
@@ -30,6 +46,11 @@ import StockScreen from "./StockScreen.vue"
 export default {
     name: "App",
     components: {StockScreen},
+    data() {
+        return {
+            searchTicker: ""
+        }
+    },
     computed: {
         sideWidth() {
             if (this.$vuetify.breakpoint.xl || this.$vuetify.breakpoint.lg) {
@@ -38,6 +59,11 @@ export default {
                 return 2
             }
             return 1
+        }
+    },
+    methods: {
+        findCompany() {
+            this.$router.replace(`company/${this.searchTicker}`)
         }
     }
 }
