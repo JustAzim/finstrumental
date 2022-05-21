@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import VLabel from "../../static/js/main"
 import DoubleRowLabelValue from "../components/DoubleRowLabelValue.vue"
 import CompanyChart from "../components/CompanyChart.vue"
 import {http} from "../http-common"
