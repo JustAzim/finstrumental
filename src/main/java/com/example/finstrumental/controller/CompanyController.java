@@ -27,8 +27,8 @@ public class CompanyController {
     }
 
     @GetMapping("getCompanyDescription/{ticker}")
-    public String getCompanyDescription(@PathVariable("ticker") String ticker) {
-        return "Description of the company " + ticker;
+    public String getCompanyDescription(@PathVariable("ticker") String ticker) throws IOException {
+        return companyService.getCompanyDescription(ticker);
     }
 
 }

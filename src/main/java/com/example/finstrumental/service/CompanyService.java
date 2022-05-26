@@ -51,4 +51,8 @@ public class CompanyService {
     public FinvizDataModel getCompanyData(String ticker) throws IOException {
         return finvizz.getQuotes(ticker).get(0);
     }
+
+    public String getCompanyDescription(String ticker) throws IOException {
+        return finvizz.getCompanyDescription(ticker);
+    }
 }

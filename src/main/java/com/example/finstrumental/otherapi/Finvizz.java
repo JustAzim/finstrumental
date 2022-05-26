@@ -131,4 +131,19 @@ public class Finvizz {
             return s.parseMap(sb.toString());
         }
     }
+
+    public String getCompanyDescription(String ticker) throws IOException {
+        String url = "https://finviz.com/quote.ashx?";
+        Connection.Response document = Jsoup.connect(url)
+                .method(Connection.Method.GET)
+                .data("t", ticker)
+                .timeout(100000)
+                .execute();
+        Document doc = document.parse();
+
+        Elements t = doc.select("td.fullview-profile");
+        String desc = t.get(0).text();
+
+        return desc;
+    }
 }

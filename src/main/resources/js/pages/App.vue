@@ -1,23 +1,25 @@
 <template>
     <v-app>
         <v-app-bar dense app>
-            <v-toolbar-title>Finstrumental</v-toolbar-title>
+            <router-link :to="{name: 'stockScreen'}">
+                <v-toolbar-title>Finstrumental</v-toolbar-title>
+            </router-link>
 
-<!--            <v-spacer></v-spacer>-->
-<!--                <v-row justify="end" class="mr-5">-->
-<!--                    <v-col cols="4" class="mt-6">-->
-<!--                        <v-text-field-->
-<!--                            v-model="searchTicker"-->
-<!--                            clearable-->
-<!--                            label=""-->
-<!--                            placeholder="Enter ticker"-->
-<!--                            type="text"-->
-<!--                            append-icon="mdi-magnify"-->
-<!--                            @click:append="findCompany"-->
-<!--                            @keydown.enter="findCompany"-->
-<!--                        ></v-text-field>-->
-<!--                    </v-col>-->
-<!--                </v-row>-->
+            <v-spacer></v-spacer>
+                <v-row justify="end" class="mr-5">
+                    <v-col cols="4" class="mt-6">
+                        <v-text-field
+                            v-model="searchTicker"
+                            clearable
+                            label=""
+                            placeholder="Enter ticker"
+                            type="text"
+                            append-icon="mdi-magnify"
+                            @click:append="findCompany"
+                            @keydown.enter="findCompany"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
         </v-app-bar>
         <v-main class="px-sm-1">
             <v-container>
@@ -63,7 +65,8 @@ export default {
     },
     methods: {
         findCompany() {
-            this.$router.replace(`company/${this.searchTicker}`)
+            let routeData = this.$router.resolve({name: 'companyProfile', params: {ticker: this.searchTicker}});
+            window.open(routeData.href, '_blank');
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container :key="ticker">
         <v-row justify="center">
             <h1>{{ upperTicker }}</h1>
         </v-row>
@@ -64,6 +64,7 @@ export default {
             console.log(reason)
 
         }).finally(() => {
+            this.$router.replace({name: 'notFoundCompany'})
             console.log(this.companyData)
         })
 
@@ -75,6 +76,7 @@ export default {
         }).finally(() => {
 
         })
+        document.title = `${this.ticker.toUpperCase()} | Finstrumental`
     },
     computed: {
         upperTicker() {

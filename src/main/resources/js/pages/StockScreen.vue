@@ -80,7 +80,10 @@ export default {
     showTable() {
       return this.companyList && this.companyList.length > 0
     }
-  }
+  },
+    created() {
+      document.title = "Stock screener | Finstrumental"
+    }
 }
 </script>
 
