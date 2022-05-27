@@ -14,6 +14,7 @@
             :expanded.sync="expanded"
             item-key="ticker"
             hide-default-footer
+            multi-sort
         >
             <template v-slot:expanded-item="{ headers, item }">
                 <td :colspan="headers.length" :key="item.ticker">

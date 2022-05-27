@@ -8,6 +8,8 @@
 
 <script>
 export default {
-
+    created() {
+        document.title = 'Company not found | Finstrumental'
+    }
 }
 </script>

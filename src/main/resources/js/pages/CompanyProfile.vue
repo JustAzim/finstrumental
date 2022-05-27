@@ -62,9 +62,8 @@ export default {
 
         }).catch((reason) => {
             console.log(reason)
-
-        }).finally(() => {
             this.$router.replace({name: 'notFoundCompany'})
+        }).finally(() => {
             console.log(this.companyData)
         })
 
