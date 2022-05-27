@@ -116,6 +116,13 @@ let option = {
             type: 'value'
         }
     ],
+    grid: {
+        left: 0,
+        right: 50,
+        bottom: 0,
+        top: 50,
+        containLabel: true
+    },
     series: [
         {
             name: 'Forest',
