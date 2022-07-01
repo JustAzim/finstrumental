@@ -22,7 +22,7 @@
 <script>
 import "echarts";
 import VChart from "vue-echarts";
-import {getBalanceSheetOption, getStatementsOption, getCashFlowOptin} from "./_chartoptions/chartOption";
+import {getBalanceSheetOption, getStatementsOption, getCashFlowOption} from "./_chartoptions/chartOption";
 import {http} from "../http-common";
 import {getDividentsOptions} from "./_chartoptions/dividentsChartOption";
 
@@ -68,7 +68,7 @@ export default {
                             cf.data['Cash'].push('0')
                         }
                     }
-                    this.$refs.cashFlowChart.setOption(getCashFlowOptin(cf))
+                    this.$refs.cashFlowChart.setOption(getCashFlowOption(cf))
                 }).catch((reason) => {
                     console.log(reason)
                 })

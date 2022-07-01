@@ -216,8 +216,15 @@ export function getBalanceSheetOption(json) {
     return getCommonOpt(['Total Assets', 'Total Liabilities'], json)
 }
 
-export function getCashFlowOptin(json) {
-    return getCommonOpt(['Cash', 'Net Change in Cash'], json)
+export function getCashFlowOption(json) {
+    json.data['Free Cashflow'] = []
+    for (let i = 0; i < json.data['Cash from Operating Activities'].length; i++) {
+        json.data['Free Cashflow'].push(String((json.data['Cash from Operating Activities'][i] - json.data['Capital Expenditures'][i]).toFixed(2)))
+    }
+
+    console.log(json)
+
+    return getCommonOpt(['Cash', 'Free Cashflow'], json)
 }
 
 function removeTTM(json, indicators) {
