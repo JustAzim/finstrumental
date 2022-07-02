@@ -219,7 +219,7 @@ export function getBalanceSheetOption(json) {
 export function getCashFlowOption(json) {
     json.data['Free Cashflow'] = []
     for (let i = 0; i < json.data['Cash from Operating Activities'].length; i++) {
-        json.data['Free Cashflow'].push(String((json.data['Cash from Operating Activities'][i] - json.data['Capital Expenditures'][i]).toFixed(2)))
+        json.data['Free Cashflow'].push(String((json.data['Cash from Operating Activities'][i] - Math.abs(Number(json.data['Capital Expenditures'][i]))).toFixed(2)))
     }
 
     console.log(json)
