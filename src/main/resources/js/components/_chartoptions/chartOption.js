@@ -165,9 +165,6 @@ let option = {
 };
 
 function getCommonOpt(indicators, json) {
-    removeTTM(json, indicators)
-    json.data[indicators[0]] = json.data[indicators[0]].map(x => x = x.replace(/,/g, ''))
-    json.data[indicators[1]] = json.data[indicators[1]].map(x => x = x.replace(/,/g, ''))
     let series = [
         {
             name: indicators[0],
@@ -207,24 +204,35 @@ function getCommonOpt(indicators, json) {
 }
 
 export function getStatementsOption(json) {
+    let indicators = ['Total Revenue', 'Net Income']
+    formatData(indicators, json)
     return getCommonOpt(['Total Revenue', 'Net Income'], json)
 
 
 }
 
 export function getBalanceSheetOption(json) {
-    return getCommonOpt(['Total Assets', 'Total Liabilities'], json)
+    let indicators = ['Total Assets', 'Total Liabilities']
+    formatData(indicators, json)
+    return getCommonOpt(indicators, json)
 }
 
 export function getCashFlowOption(json) {
+    formatData(['Cash from Operating Activities', 'Capital Expenditures'])
     json.data['Free Cashflow'] = []
     for (let i = 0; i < json.data['Cash from Operating Activities'].length; i++) {
         json.data['Free Cashflow'].push(String((json.data['Cash from Operating Activities'][i] - Math.abs(Number(json.data['Capital Expenditures'][i]))).toFixed(2)))
     }
 
-    console.log(json)
+    let indicators = ['Cash', 'Free Cashflow']
 
-    return getCommonOpt(['Cash', 'Free Cashflow'], json)
+    return getCommonOpt(indicators, json)
+}
+
+function formatData(indicators, json) {
+    removeTTM(json, indicators)
+    json.data[indicators[0]] = json.data[indicators[0]].map(x => x = x.replace(/,/g, ''))
+    json.data[indicators[1]] = json.data[indicators[1]].map(x => x = x.replace(/,/g, ''))
 }
 
 function removeTTM(json, indicators) {
