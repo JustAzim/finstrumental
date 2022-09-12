@@ -1,9 +1,9 @@
-package com.example.finstrumental.model;
+package com.example.finstrumental.dto;
 
 import lombok.*;
 
 @Data
-public class MFIdataModel {
+public class MFIdataDto {
 
     String companyName;
 
@@ -15,7 +15,7 @@ public class MFIdataModel {
 
     String mostRecentQuarterData;
 
-    public MFIdataModel(String companyName, String ticker, String marketCap, String priceFrom, String mostRecentQuarterData) {
+    public MFIdataDto(String companyName, String ticker, String marketCap, String priceFrom, String mostRecentQuarterData) {
         this.companyName = companyName;
         this.ticker = ticker;
         this.marketCap = marketCap;

@@ -1,6 +1,6 @@
 package com.example.finstrumental.service;
 
-import com.example.finstrumental.model.*;
+import com.example.finstrumental.dto.*;
 import com.example.finstrumental.otherapi.*;
 import lombok.*;
 import org.springframework.stereotype.*;
@@ -17,27 +17,27 @@ public class CompanyService {
     @NonNull
     private final Finvizz finvizz;
 
-    public List<ScreenOneModel> getFiftyCompanyByMarketCap(int cap) throws IOException {
-        List<FinvizDataModel> allQuotes = new LinkedList<>();
+    public List<ScreenOneDto> getFiftyCompanyByMarketCap(int cap) throws IOException {
+        List<FinvizDataDto> allQuotes = new LinkedList<>();
         Set<String> tickers = new HashSet<>();
-        List<MFIdataModel> mfiDataList = mfi.getData(cap);
-        for (MFIdataModel data : mfiDataList) {
+        List<MFIdataDto> mfiDataList = mfi.getData(cap);
+        for (MFIdataDto data : mfiDataList) {
             tickers.add(data.getTicker());
             if (tickers.size() >= 20) {
-                List<FinvizDataModel> quotes = finvizz.getQuotes(tickers);
+                List<FinvizDataDto> quotes = finvizz.getQuotes(tickers);
                 allQuotes.addAll(quotes);
                 tickers.clear();
             }
         }
         if (tickers.size() > 0) {
-            List<FinvizDataModel> quotes = finvizz.getQuotes(tickers);
+            List<FinvizDataDto> quotes = finvizz.getQuotes(tickers);
             allQuotes.addAll(quotes);
         }
-        LinkedList<ScreenOneModel> viewModelList = new LinkedList<>();
-        for (FinvizDataModel quotes : allQuotes) {
-            for (MFIdataModel mfi : mfiDataList) {
+        LinkedList<ScreenOneDto> viewModelList = new LinkedList<>();
+        for (FinvizDataDto quotes : allQuotes) {
+            for (MFIdataDto mfi : mfiDataList) {
                 if (mfi.getTicker().equals(quotes.getTicker())) {
-                    ScreenOneModel model = new ScreenOneModel(mfi, quotes);
+                    ScreenOneDto model = new ScreenOneDto(mfi, quotes);
                     viewModelList.add(model);
                     break;
                 }
@@ -48,7 +48,7 @@ public class CompanyService {
         return viewModelList;
     }
 
-    public FinvizDataModel getCompanyData(String ticker) throws IOException {
+    public FinvizDataDto getCompanyData(String ticker) throws IOException {
         return finvizz.getQuotes(ticker).get(0);
     }
 

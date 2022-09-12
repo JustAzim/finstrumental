@@ -1,9 +1,9 @@
-package com.example.finstrumental.model;
+package com.example.finstrumental.dto;
 
 import lombok.*;
 
 @Data
-public class ScreenOneModel {
+public class ScreenOneDto {
 
     String ticker;
 
@@ -31,7 +31,7 @@ public class ScreenOneModel {
 
     String insiderOwn;
 
-    public ScreenOneModel(MFIdataModel mfi, FinvizDataModel finvizz) {
+    public ScreenOneDto(MFIdataDto mfi, FinvizDataDto finvizz) {
         this.ticker = mfi.ticker;
         this.mostRecentQuarterData = mfi.mostRecentQuarterData;
         this.companyName = finvizz.companyName;

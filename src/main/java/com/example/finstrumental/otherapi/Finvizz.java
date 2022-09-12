@@ -1,7 +1,7 @@
 package com.example.finstrumental.otherapi;
 
 
-import com.example.finstrumental.model.*;
+import com.example.finstrumental.dto.*;
 import org.jsoup.*;
 import org.jsoup.nodes.*;
 import org.jsoup.select.*;
@@ -25,7 +25,7 @@ public class Finvizz {
      * @param tickers - Список тикеров через запятую (МАКСИМУМ 20!!!)
      * @return лист с нужными данными
      */
-    public List<FinvizDataModel> getQuotes(String tickers) throws IOException {
+    public List<FinvizDataDto> getQuotes(String tickers) throws IOException {
         Connection.Response document = Jsoup.connect(screenerURL)
                 .method(Connection.Method.GET)
                 .data("v", "152")
@@ -35,7 +35,7 @@ public class Finvizz {
                 .timeout(100000)
                 .execute();
         Document doc = document.parse();
-        LinkedList<FinvizDataModel> list = new LinkedList<>();
+        LinkedList<FinvizDataDto> list = new LinkedList<>();
 
         Elements t = doc.select("td.screener-body-table-nw");
         int i = 0;
@@ -52,7 +52,7 @@ public class Finvizz {
             String de = t.get(i++).text();
             String grossMargin = t.get(i++).text();
             String price = t.get(i++).text();
-            FinvizDataModel model = new FinvizDataModel(ticker, companyName, sector, country, marketCap, pe, ps, dividentYield, insiderOwn, de, grossMargin, price);
+            FinvizDataDto model = new FinvizDataDto(ticker, companyName, sector, country, marketCap, pe, ps, dividentYield, insiderOwn, de, grossMargin, price);
             list.add(model);
         }
 
@@ -63,7 +63,7 @@ public class Finvizz {
      * @param tickers -set тикеров (МАКСИМУМ 20!!!)
      * @return лист с нужными данными
      */
-    public List<FinvizDataModel> getQuotes(Set<String> tickers) throws IOException {
+    public List<FinvizDataDto> getQuotes(Set<String> tickers) throws IOException {
 
         String t = String.join(",", tickers);
         return getQuotes(t);

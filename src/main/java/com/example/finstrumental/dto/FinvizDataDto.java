@@ -1,9 +1,9 @@
-package com.example.finstrumental.model;
+package com.example.finstrumental.dto;
 
 import lombok.*;
 
 @Data
-public class FinvizDataModel {
+public class FinvizDataDto {
 
     String ticker;
 
@@ -29,7 +29,7 @@ public class FinvizDataModel {
 
     String price;
 
-    public FinvizDataModel(String ticker, String companyName, String sector, String country, String marketCap, String priceToEarn, String priceToSale, String dividentYield, String insiderOwn, String debtEq, String grossMargin, String price) {
+    public FinvizDataDto(String ticker, String companyName, String sector, String country, String marketCap, String priceToEarn, String priceToSale, String dividentYield, String insiderOwn, String debtEq, String grossMargin, String price) {
         this.ticker = ticker;
         this.companyName = companyName;
         this.sector = sector;

@@ -1,6 +1,6 @@
 package com.example.finstrumental.otherapi;
 
-import com.example.finstrumental.model.*;
+import com.example.finstrumental.dto.*;
 import org.jsoup.*;
 import org.jsoup.nodes.*;
 import org.jsoup.select.*;
@@ -25,8 +25,8 @@ public class Mfi {
 
     Connection.Response authDoc;
 
-    public List<MFIdataModel> getData(int cap) throws IOException {
-        List<MFIdataModel> list = new LinkedList<>();
+    public List<MFIdataDto> getData(int cap) throws IOException {
+        List<MFIdataDto> list = new LinkedList<>();
         Document doc = getMFIDoc(cap);
         Elements t = doc.select("table.screeningdata td");
         int i = 0;
@@ -36,7 +36,7 @@ public class Mfi {
             String mc = t.get(i++).text();
             String pf = t.get(i++).text();
             String mrqd = t.get(i++).text();
-            MFIdataModel model = new MFIdataModel(name, ticker, mc, pf, mrqd);
+            MFIdataDto model = new MFIdataDto(name, ticker, mc, pf, mrqd);
             list.add(model);
         }
         return list;
