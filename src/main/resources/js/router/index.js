@@ -4,6 +4,8 @@ import StockScreen from "../pages/StockScreen.vue"
 import CompanyProfile from "../pages/CompanyProfile.vue"
 import NotFoundPage from "../pages/NotFoundPage.vue"
 import NotFoundCompany from "../pages/NotFoundCompany.vue"
+import Auth from "../pages/auth/LoginForm.vue"
+import RegistrationForm from "../pages/auth/RegistrationForm.vue"
 
 export default new VueRouter({
     routes: [
@@ -21,6 +23,16 @@ export default new VueRouter({
             path: '/company/notFoundCompany',
             name: 'notFoundCompany',
             component: NotFoundCompany
+        },
+        {
+            path: '/auth/login',
+            name: 'loginPage',
+            component: Auth
+        },
+        {
+            path: '/auth/registration',
+            name: 'registrationPage',
+            component: RegistrationForm
         },
         {
             path: '*',

@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-        Role user_role = roleRepository.findByName("USER_ROLE");
+        Role user_role = roleRepository.findByName("ROLE_USER");
         List<Role> roles = new ArrayList<>();
         roles.add(user_role);
         user.setRoles(roles);
