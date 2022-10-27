@@ -79,9 +79,8 @@ export default {
     loadUser() {
       http.get('api/users').then((res) => {
         this.$store.dispatch('user', res.data)
-      }).catch( () => {
-        console.log("loadUser Error")
-        this.$router.push({name: 'loginPage'})
+      }).catch((reason) => {
+        console.log(reason)
       })
     },
   },
