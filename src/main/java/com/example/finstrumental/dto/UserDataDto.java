@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AdminUserDto {
+public class UserDataDto {
 
     private Long id;
     private String username;
@@ -14,8 +14,8 @@ public class AdminUserDto {
     private String lastName;
     private String email;
 
-    public static AdminUserDto fromUser(User user) {
-        AdminUserDto adminUserDto = new AdminUserDto();
+    public static UserDataDto fromUser(User user) {
+        UserDataDto adminUserDto = new UserDataDto();
         adminUserDto.setId(user.getId());
         adminUserDto.setUsername(user.getUsername());
         adminUserDto.setFirstName(user.getFirstName());

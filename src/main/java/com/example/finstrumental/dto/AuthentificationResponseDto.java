@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class AuthentificationResponseDto {
 
-    private String username;
+    private UserDataDto user;
     private String token;
 
-    public AuthentificationResponseDto(String username, String token) {
-        this.username = username;
+    public AuthentificationResponseDto(UserDataDto user, String token) {
+        this.user = user;
         this.token = token;
     }
 }

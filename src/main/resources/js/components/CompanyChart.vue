@@ -23,7 +23,7 @@
 import "echarts";
 import VChart from "vue-echarts";
 import {getBalanceSheetOption, getStatementsOption, getCashFlowOption} from "./_chartoptions/chartOption";
-import {http} from "../http-common";
+import http from "../http-common";
 import {getDividentsOptions} from "./_chartoptions/dividentsChartOption";
 
 export default {

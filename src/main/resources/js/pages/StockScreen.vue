@@ -45,9 +45,10 @@
 </template>
 
 <script>
-import {http} from "../http-common"
+import http from "../http-common"
 import CompanyTable from "../components/CompanyTable.vue"
 import CompanyTableFilter from "../components/CompanyTableFIlter.vue"
+import {consts} from "../constants";
 
 export default {
   components: {CompanyTable, CompanyTableFilter},
@@ -74,16 +75,24 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-    }
+    },
+    loadUser() {
+      http.get('api/users').then((res) => {
+        this.$store.dispatch('user', res.data)
+      }).catch( () => {
+        this.$router.push({name: 'loginPage'})
+      })
+    },
   },
   computed: {
     showTable() {
       return this.companyList && this.companyList.length > 0
     }
   },
-    created() {
-      document.title = "Stock screener | Finstrumental"
-    }
+  created() {
+    this.loadUser()
+    document.title = `Stock screener | ${consts.AppName}`
+  }
 }
 </script>
 

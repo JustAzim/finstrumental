@@ -35,6 +35,12 @@
         >
           Submit
         </v-btn>
+        <v-btn
+            class="mr-4"
+            @click="goRegister"
+        >
+          Register
+        </v-btn>
       </v-form>
     </v-col>
     <v-col/>
@@ -73,8 +79,8 @@ export default {
         }
 
         httpNoToken.post('api/auth/login', body).then(res => {
-          console.log(res.data.token)
           localStorage.setItem("token", res.data.token)
+          this.$store.dispatch('user', res.data.user);
           this.$router.push("/")
         }).catch((reason) => {
           console.log(reason)
@@ -83,6 +89,9 @@ export default {
       }
 
     },
+    goRegister() {
+      this.$router.push({name: 'registrationPage'})
+    }
   },
   created() {
     document.title = 'Log in  | Finstrumental'

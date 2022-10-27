@@ -62,6 +62,12 @@
         >
           Submit
         </v-btn>
+        <v-btn
+            class="mr-4"
+            @click="goLogin"
+        >
+          Login
+        </v-btn>
       </v-form>
     </v-col>
     <v-col/>
@@ -133,6 +139,9 @@ export default {
       }
 
     },
+    goLogin() {
+      this.$router.push({name: 'loginPage'})
+    }
   },
   created() {
     document.title = 'Registration | Finstrumental'

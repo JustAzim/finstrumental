@@ -3,6 +3,7 @@ package com.example.finstrumental.controller;
 import com.example.finstrumental.dto.AuthRegistrationRequestDto;
 import com.example.finstrumental.dto.AuthentificationRequestDto;
 import com.example.finstrumental.dto.AuthentificationResponseDto;
+import com.example.finstrumental.dto.UserDataDto;
 import com.example.finstrumental.model.User;
 import com.example.finstrumental.security.jwt.JwtTokenProvider;
 import com.example.finstrumental.service.UserService;
@@ -46,7 +47,7 @@ public class AuthentificationRestController {
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
 
-            return ResponseEntity.ok(new AuthentificationResponseDto(username, token));
+            return ResponseEntity.ok(new AuthentificationResponseDto(new UserDataDto().fromUser(user), token));
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }

@@ -45,7 +45,9 @@
 <script>
 import DoubleRowLabelValue from "../components/DoubleRowLabelValue.vue"
 import CompanyChart from "../components/CompanyChart.vue"
-import {http} from "../http-common"
+import http from "../http-common"
+import {consts} from "../constants";
+
 export default {
     name: "CompanyProfile",
     components: {CompanyChart, DoubleRowLabelValue},
@@ -61,7 +63,9 @@ export default {
             this.companyData = res.data
 
         }).catch((reason) => {
+            console.log("==================")
             console.log(reason)
+            console.log("==================")
             this.$router.replace({name: 'notFoundCompany'})
         }).finally(() => {
             console.log(this.companyData)
@@ -75,7 +79,7 @@ export default {
         }).finally(() => {
 
         })
-        document.title = `${this.ticker.toUpperCase()} | Finstrumental`
+        document.title = `${this.ticker.toUpperCase()} | ${consts.AppName}`
     },
     computed: {
         upperTicker() {

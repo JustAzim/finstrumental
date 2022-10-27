@@ -7,9 +7,11 @@
 </template>
 
 <script>
+import {consts} from "../constants";
+
 export default {
     created() {
-        document.title = 'Company not found | Finstrumental'
+        document.title = `Company not found | ${consts.AppName}`
     }
 }
 </script>
