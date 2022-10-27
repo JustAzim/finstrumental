@@ -12,7 +12,10 @@ http.interceptors.request.use(config => {
 }, error => {})
 http.interceptors.response.use(config => {
 }, error => {
-    if(error.response.status == 500) {
+    console.log('Response Error')
+    console.log(error)
+
+    if(error.response.status === 500) {
         app.$nextTick(() => {
             app.$router.push({name: 'loginPage'})
         })

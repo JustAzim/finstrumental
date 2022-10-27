@@ -17,6 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String ADMIN_ENDPOINT = "/api/admin/**";
     private static final String LOGIN_ENDPOINT = "/api/auth/**";
+    private static final String FAVICON_ENDPOINT = "/favicon.ico";
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -41,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/js/main.js").permitAll()
+                .antMatchers(FAVICON_ENDPOINT).permitAll()
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
