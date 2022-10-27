@@ -105,10 +105,13 @@ export default {
             http.get('api/users').then((res) => {
               this.$store.dispatch('user', res.data)
             }).catch( () => {
+              console.log("loadUser Error")
+
               this.$router.push({name: 'loginPage'})
             })
         },
         logOut() {
+          console.log("logout")
           localStorage.setItem("token", "")
           this.$store.dispatch('user', null)
           this.$router.push({name: 'loginPage'})

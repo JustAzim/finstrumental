@@ -131,6 +131,7 @@ export default {
 
 
         httpNoToken.post('api/auth/register', body).then(res => {
+          console.log("login after registration")
           this.$router.push({name: 'loginPage'})
         }).catch((reason) => {
           console.log(reason)
@@ -140,6 +141,8 @@ export default {
 
     },
     goLogin() {
+      console.log("pressed login button")
+
       this.$router.push({name: 'loginPage'})
     }
   },
