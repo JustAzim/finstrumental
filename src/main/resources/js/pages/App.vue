@@ -102,12 +102,13 @@ export default {
             window.open(routeData.href, '_blank');
         },
         loadUser() {
-            http.get('api/users').then((res) => {
-              this.$store.dispatch('user', res.data)
-            }).catch( () => {
-              console.log("loadUser Error")
-
-              this.$router.push({name: 'loginPage'})
+            http.get('api/users').then(response => {
+              console.log("====================")
+              console.log("loadUser")
+              console.log("====================")
+              this.$store.dispatch('user', response.data)
+            }).catch((reason) => {
+              console.log(reason)
             })
         },
         logOut() {

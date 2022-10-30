@@ -20,7 +20,7 @@ export default new VueRouter({
             component: CompanyProfile
         },
         {
-            path: '/company/notFoundCompany',
+            path: '/notFoundCompany',
             name: 'notFoundCompany',
             component: NotFoundCompany
         },

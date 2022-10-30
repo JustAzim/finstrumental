@@ -61,24 +61,22 @@ export default {
     created() {
         http.get(`companyData/${this.ticker}`).then(res => {
             this.companyData = res.data
-
         }).catch((reason) => {
-            console.log("==================")
             console.log(reason)
-            console.log("==================")
             this.$router.replace({name: 'notFoundCompany'})
         }).finally(() => {
             console.log(this.companyData)
         })
 
-        http(`companyData/getCompanyDescription/${this.ticker}`).then(res => {
-            this.description = res.data
-        }).catch((reason) => {
-            console.log(reason)
 
-        }).finally(() => {
-
-        })
+        // http(`companyData/getCompanyDescription/${this.ticker}`).then(res => {
+        //     this.description = res.data
+        // }).catch((reason) => {
+        //     console.log(reason)
+        //
+        // }).finally(() => {
+        //
+        // })
         document.title = `${this.ticker.toUpperCase()} | ${consts.AppName}`
     },
     computed: {
