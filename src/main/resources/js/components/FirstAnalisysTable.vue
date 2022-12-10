@@ -1,0 +1,112 @@
+<template>
+  <v-container>
+    <v-data-table
+        :headers="headers"
+        :items="items"
+        class="elevation-1"
+        hide-default-footer
+        multi-sort
+    >
+      <template v-slot:item.ticker="{ item }">
+        <a target="_blank" :href="`#/company/${item.ticker}`">{{ item.ticker }}</a>
+      </template>
+
+
+    </v-data-table>
+  </v-container>
+</template>
+
+<script>
+import {formatMoneyToMln} from "../utils/formatter";
+
+export default {
+  props: {
+    analysisData: {}
+  },
+  data() {
+    return {
+      indexes: [
+        {
+          text: "Total Revenue",
+          property: "totalRevenue"
+        },
+        {
+          text: "Cost of Revenue",
+          property: "costOfRevenue"
+        },
+        {
+          text: "Amortization",
+          property: "reconciledDepreciation"
+        },
+        {
+          text: "Capital Expenditure",
+          property: "capitalExpenditure"
+        },
+        {
+          text: "Free Cash Flow",
+          property: "freeCashFlow"
+        },
+        {
+          text: "EBIT",
+          property: "ebit"
+        },
+
+      ],
+      headers: [],
+      items:[],
+    }
+  },
+  created() {
+    this.normalizeData()
+  },
+  methods: {
+    normalizeData() {
+      let dates = Object.getOwnPropertyNames(JSON.parse(JSON.stringify(this.analysisData.fundamentals)))
+      dates.sort()
+      this.createHeaders(dates);
+      this.createItems(dates)
+    },
+    createHeaders(dates) {
+      this.headers.push({
+        text: "Name",
+        value: "name"
+      })
+      this.headers.push({
+        text: "Value",
+        value: "value"
+      })
+      dates.forEach((d) => {
+        this.headers.push({
+          text: d,
+          value: d
+        })
+      })
+    },
+    createItems(dates) {
+      this.items.push({
+        name: "Grothe rate",
+        value: this.analysisData.grotheRate
+      })
+      for(let index of this.indexes) {
+        debugger
+        let row = {}
+        row["name"] = index.text
+        row["value"] = null
+
+        for(let d of dates) {
+          let val = this.analysisData.fundamentals[d][index.property]
+          if(val) {
+            // row[d] = formatMoneyToMln(this.analysisData.fundamentals[d][index.property])
+            row[d] = this.analysisData.fundamentals[d][index.property]
+          }
+        }
+        this.items.push(row)
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -1,5 +1,8 @@
 package com.example.finstrumental.otherapi;
 
+import com.example.finstrumental.dto.yahooDto.YahooFundamental;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.json.*;
 import org.springframework.stereotype.*;
 
@@ -11,6 +14,48 @@ import java.util.*;
 
 @Component
 public class YahooFinance {
+
+    private final String URL_FUNDAMENTAL_API1 = "https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/%s?lang=en-US&region=US&symbol=%s";
+    private final String URL_FUNDAMENTAL_API2 = "&padTimeSeries=true&type=CannualReconciledCostOfRevenue%2CannualCostOfRevenue%2CannualReconciledDepreciation%2CannualTotalRevenue%2CannualCapitalExpenditure%2CannualEBIT%2CannualFreeCashFlow&merge=false&period1=493590046&period2=1667638858&corsDomain=finance.yahoo.com";
+
+
+    public Map<String, YahooFundamental> getFundamentalIndexes(String ticker) throws IOException {
+        URL url = new URL(String.format(URL_FUNDAMENTAL_API1, ticker, ticker) + URL_FUNDAMENTAL_API2);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(url).get("timeseries").get("result");
+        Map<String, YahooFundamental> fundamentals = new HashMap<>();
+        int i = 0;
+
+        while (jsonNode.get(i) != null) {
+            JsonNode node = jsonNode.get(i);
+            String type = node.get("meta").get("type").get(0).textValue();
+            JsonNode indexes = node.get(type);
+            int k = 0;
+            while (indexes.get(k) != null) {
+                JsonNode index = indexes.get(k);
+                if(index.size() == 0) {
+                    k++;
+                    continue;
+                }
+                String dt = index.get("asOfDate").textValue();
+                Double value = index.get("reportedValue").get("raw").doubleValue();
+
+                if (fundamentals.containsKey(dt)) {
+                    YahooFundamental fundamental = fundamentals.get(dt);
+                    fillFundamentalByType(fundamental, type, value);
+                } else {
+                    YahooFundamental fundamental = new YahooFundamental();
+                    fillFundamentalByType(fundamental, type, value);
+                    fundamentals.put(dt, fundamental);
+                }
+                k++;
+            }
+            i++;
+        }
+        calcEbitda(fundamentals);
+        return fundamentals;
+    }
 
     public Map<String, Object> getDividents(String ticker, LocalDate dbeg, LocalDate dend) throws IOException {
         String period2 = String.valueOf(dend.toEpochSecond(LocalTime.of(0,0), ZoneOffset.ofHours(0)));
@@ -41,5 +86,25 @@ public class YahooFinance {
             Map<String, Object> res = s.parseMap(sb.toString());
             return res;
         }
+    }
+
+    private void fillFundamentalByType(YahooFundamental fundamental, String type, Double value) {
+        switch (type) {
+            case "annualCostOfRevenue": fundamental.setCostOfRevenue(value); break;
+            case "annualReconciledDepreciation": fundamental.setReconciledDepreciation(value); break;
+            case "annualTotalRevenue": fundamental.setTotalRevenue(value); break;
+            case "annualCapitalExpenditure": fundamental.setCapitalExpenditure(value); break;
+            case "annualEBIT": fundamental.setEbit(value); break;
+            case "annualFreeCashFlow": fundamental.setFreeCashFlow(value); break;
+        }
+    }
+
+    private void calcEbitda(Map<String, YahooFundamental> fundamental) {
+        fundamental.keySet().forEach((String key) -> {
+            YahooFundamental f = fundamental.get(key);
+            if(f.getEbit() != null &&  f.getReconciledDepreciation() != null) {
+                f.setEbitda(f.getEbit() + f.getReconciledDepreciation());
+            }
+        });
     }
 }

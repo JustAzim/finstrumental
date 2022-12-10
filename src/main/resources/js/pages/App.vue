@@ -103,9 +103,6 @@ export default {
         },
         loadUser() {
             http.get('api/users').then(response => {
-              console.log("====================")
-              console.log("loadUser")
-              console.log("====================")
               this.$store.dispatch('user', response.data)
             }).catch((reason) => {
               console.log(reason)

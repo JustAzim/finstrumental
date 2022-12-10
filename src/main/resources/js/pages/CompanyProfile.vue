@@ -39,6 +39,9 @@
         <v-row>
             <company-chart :ticker="ticker"/>
         </v-row>
+
+      <first-analisys-table v-if="firstAnalisisData" :analysis-data="firstAnalisisData"/>
+
     </v-container>
 </template>
 
@@ -47,15 +50,17 @@ import DoubleRowLabelValue from "../components/DoubleRowLabelValue.vue"
 import CompanyChart from "../components/CompanyChart.vue"
 import http from "../http-common"
 import {consts} from "../constants";
+import FirstAnalisysTable from "../components/FirstAnalisysTable.vue";
 
 export default {
     name: "CompanyProfile",
-    components: {CompanyChart, DoubleRowLabelValue},
+    components: {FirstAnalisysTable, CompanyChart, DoubleRowLabelValue},
     data() {
         return {
             ticker: this.$route.params.ticker,
             companyData: null,
             description: "",
+            firstAnalisisData: null
         }
     },
     created() {
@@ -68,15 +73,16 @@ export default {
             console.log(this.companyData)
         })
 
+        http(`firstAnalysis/getFundamental/${this.ticker}`).then(res => {
+          this.firstAnalisisData = res.data
+        })
 
-        // http(`companyData/getCompanyDescription/${this.ticker}`).then(res => {
-        //     this.description = res.data
-        // }).catch((reason) => {
-        //     console.log(reason)
-        //
-        // }).finally(() => {
-        //
-        // })
+        http(`companyData/getCompanyDescription/${this.ticker}`).then(res => {
+            this.description = res.data
+        }).catch((reason) => {
+            console.log(reason)
+        })
+
         document.title = `${this.ticker.toUpperCase()} | ${consts.AppName}`
     },
     computed: {
