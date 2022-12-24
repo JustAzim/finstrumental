@@ -96,8 +96,7 @@ export default {
         for(let d of dates) {
           let val = this.analysisData.fundamentals[d][index.property]
           if(val) {
-            // row[d] = formatMoneyToMln(this.analysisData.fundamentals[d][index.property])
-            row[d] = this.analysisData.fundamentals[d][index.property]
+            row[d] = this.analysisData.fundamentals[d][index.property].toLocaleString('en-US')
           }
         }
         this.items.push(row)
