@@ -26,7 +26,7 @@ public class Ycharts {
         String res = t.get(0).text();
         String grotheRate = res.split("%")[0];
 
-        return Double.parseDouble(grotheRate);
+        return Double.parseDouble(grotheRate)/100;
     }
 
 }

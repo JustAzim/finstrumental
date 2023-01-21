@@ -14,6 +14,10 @@ public class FirstAnalysisDto {
 
     private Double grotheRate;
 
+    private Double reconciledDepreciation;
+
+    private Double capitalExpenditure;
+
     public FirstAnalysisDto(String ticker, Map<String, YahooFundamental> fundamentals, Double grotheRate) {
         this.ticker = ticker;
         this.fundamentals = fundamentals;

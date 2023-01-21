@@ -27,6 +27,10 @@ export default {
     return {
       indexes: [
         {
+          text: "Grothe Rate",
+          property: "grotheRate"
+        },
+        {
           text: "Total Revenue",
           property: "totalRevenue"
         },
@@ -50,7 +54,10 @@ export default {
           text: "EBIT",
           property: "ebit"
         },
-
+        {
+          text: "EBITDA",
+          property: "ebitda"
+        },
       ],
       headers: [],
       items:[],
@@ -83,20 +90,28 @@ export default {
       })
     },
     createItems(dates) {
-      this.items.push({
-        name: "Grothe rate",
-        value: this.analysisData.grotheRate
-      })
       for(let index of this.indexes) {
-        debugger
         let row = {}
         row["name"] = index.text
-        row["value"] = null
+        let val = this.analysisData[index.property]
+
+        if(val) {
+          if(index.property == "reconciledDepreciation" || index.property == "grotheRate" ) {
+            val = val.toFixed(2)
+          } else {
+            val = Number(val.toFixed()).toLocaleString('en-US')
+          }
+        }
+        row["value"] = val ? val : null
 
         for(let d of dates) {
           let val = this.analysisData.fundamentals[d][index.property]
           if(val) {
-            row[d] = this.analysisData.fundamentals[d][index.property].toLocaleString('en-US')
+            if(index.property == "grotheRate" ) {
+              row[d] = val.toFixed(2)
+            } else {
+              row[d] = Number(val.toFixed()).toLocaleString('en-US')
+            }
           }
         }
         this.items.push(row)

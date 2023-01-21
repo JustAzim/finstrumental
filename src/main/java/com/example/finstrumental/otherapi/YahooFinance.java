@@ -53,7 +53,6 @@ public class YahooFinance {
             }
             i++;
         }
-        calcEbitda(fundamentals);
         return fundamentals;
     }
 
@@ -97,14 +96,5 @@ public class YahooFinance {
             case "annualEBIT": fundamental.setEbit(value); break;
             case "annualFreeCashFlow": fundamental.setFreeCashFlow(value); break;
         }
-    }
-
-    private void calcEbitda(Map<String, YahooFundamental> fundamental) {
-        fundamental.keySet().forEach((String key) -> {
-            YahooFundamental f = fundamental.get(key);
-            if(f.getEbit() != null &&  f.getReconciledDepreciation() != null) {
-                f.setEbitda(f.getEbit() + f.getReconciledDepreciation());
-            }
-        });
     }
 }

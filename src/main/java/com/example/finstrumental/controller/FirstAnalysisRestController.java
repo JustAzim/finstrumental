@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("firstAnalysis")
@@ -22,7 +23,7 @@ public class FirstAnalysisRestController {
     private final FirstAnalysisService firstAnalysisService;
 
     @GetMapping("getFundamental/{ticker}")
-    public ResponseEntity<FirstAnalysisDto> getFundamental(@PathVariable("ticker") String ticker) throws IOException {
+    public ResponseEntity<FirstAnalysisDto> getFundamental(@PathVariable("ticker") String ticker) throws IOException, ParseException {
         return new ResponseEntity<>(firstAnalysisService.doAnslys(ticker), HttpStatus.OK);
     }
 

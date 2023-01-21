@@ -22,4 +22,6 @@ public class YahooFundamental {
 
     private Double ebitda;
 
+    private Double grotheRate;
+
 }
