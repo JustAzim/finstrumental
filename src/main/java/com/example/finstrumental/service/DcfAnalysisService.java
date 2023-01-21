@@ -78,9 +78,13 @@ public class DcfAnalysisService {
         List<Double> totalRevenueList = new ArrayList();
         List<Double> capexList = new ArrayList<>();
         datesList.forEach((dt) -> {
-            amortizationList.add(fundamental.get(dt).getReconciledDepreciation());
-            totalRevenueList.add(fundamental.get(dt).getTotalRevenue());
-            capexList.add(fundamental.get(dt).getCapitalExpenditure());
+            YahooFundamental yahooFundamental = fundamental.get(dt);
+            if(Objects.nonNull(yahooFundamental.getReconciledDepreciation()))
+                amortizationList.add(yahooFundamental.getReconciledDepreciation());
+            if(Objects.nonNull(yahooFundamental.getTotalRevenue()))
+                totalRevenueList.add(yahooFundamental.getTotalRevenue());
+            if(Objects.nonNull(yahooFundamental.getCapitalExpenditure()))
+                capexList.add(yahooFundamental.getCapitalExpenditure());
 
         });
 
@@ -118,6 +122,7 @@ public class DcfAnalysisService {
 
         //collect list of grotheRate, amortization
         List<Double> grList = new ArrayList<>();
+        List<Double> capexList = new ArrayList<>();
         datesList.forEach((dt) -> {
             Double gr = fundamental.get(dt).getGrotheRate();
             if(gr != null) {
@@ -163,6 +168,9 @@ public class DcfAnalysisService {
                 Double ebit = yahooFundamental.getTotalRevenue() - yahooFundamental.getCostOfRevenue();
                 yahooFundamental.setEbit(ebit);
             }
+
+            //CAPEX
+            yahooFundamental.setCapitalExpenditure(dcfAnalysis.getCapitalExpenditure());
         }
     }
 
