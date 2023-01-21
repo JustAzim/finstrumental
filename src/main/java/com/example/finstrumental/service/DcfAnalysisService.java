@@ -1,7 +1,7 @@
 package com.example.finstrumental.service;
 
 
-import com.example.finstrumental.dto.FirstAnalysisDto;
+import com.example.finstrumental.dto.DcfAnalysis;
 import com.example.finstrumental.dto.yahooDto.YahooFundamental;
 import com.example.finstrumental.otherapi.YahooFinance;
 import com.example.finstrumental.otherapi.Ycharts;
@@ -12,12 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class FirstAnalysisService {
+public class DcfAnalysisService {
 
     @NonNull
     private final YahooFinance yahooFinance;
@@ -25,21 +24,21 @@ public class FirstAnalysisService {
     @NonNull
     private final Ycharts ycharts;
 
-    public FirstAnalysisDto doAnslys(String ticker) throws IOException, ParseException {
+    public DcfAnalysis doAnslys(String ticker) throws IOException, ParseException {
         Map<String, YahooFundamental> fundamentalIndexes = yahooFinance.getFundamentalIndexes(ticker);
         Double grotheRate = ycharts.getGrotheRate();
-        FirstAnalysisDto res = new FirstAnalysisDto(ticker, fundamentalIndexes, grotheRate);
+        DcfAnalysis res = new DcfAnalysis(ticker, fundamentalIndexes, grotheRate);
         analysData(res);
         return res;
     }
 
-    private void analysData(FirstAnalysisDto firstAnalysisDto) throws ParseException {
-        calcGrotheRate(firstAnalysisDto.getFundamentals());
-        calcAmortizationAndCapex(firstAnalysisDto);
+    private void analysData(DcfAnalysis dcfAnalysis) throws ParseException {
+        calcGrotheRate(dcfAnalysis.getFundamentals());
+        calcAmortizationAndCapex(dcfAnalysis);
 
-        calcForecastData(firstAnalysisDto);
+        calcForecastData(dcfAnalysis);
 
-        calcEbitda(firstAnalysisDto.getFundamentals());
+        calcEbitda(dcfAnalysis.getFundamentals());
     }
 
     private void calcEbitda(Map<String, YahooFundamental> fundamental) {
@@ -70,8 +69,8 @@ public class FirstAnalysisService {
         }
     }
 
-    private void calcAmortizationAndCapex(FirstAnalysisDto firstAnalysisDto) {
-        Map<String, YahooFundamental> fundamental = firstAnalysisDto.getFundamentals();
+    private void calcAmortizationAndCapex(DcfAnalysis dcfAnalysis) {
+        Map<String, YahooFundamental> fundamental = dcfAnalysis.getFundamentals();
         List<String> datesList = new ArrayList(fundamental.keySet());
         Collections.sort(datesList);
 
@@ -89,18 +88,18 @@ public class FirstAnalysisService {
         Double avgTotalRevenue = getAvg(totalRevenueList);
 
         if(Objects.nonNull(avgAmortization) && Objects.nonNull(avgTotalRevenue)) {
-            firstAnalysisDto.setReconciledDepreciation(avgAmortization/avgTotalRevenue);
+            dcfAnalysis.setReconciledDepreciation(avgAmortization/avgTotalRevenue);
         }
 
         Double avgCapex = getAvg(capexList);
         if(Objects.nonNull(avgCapex)) {
-            firstAnalysisDto.setCapitalExpenditure(avgCapex);
+            dcfAnalysis.setCapitalExpenditure(avgCapex);
         }
 
     }
 
-    private void calcForecastData(FirstAnalysisDto firstAnalysisDto) throws ParseException {
-        Map<String, YahooFundamental> fundamental = firstAnalysisDto.getFundamentals();
+    private void calcForecastData(DcfAnalysis dcfAnalysis) throws ParseException {
+        Map<String, YahooFundamental> fundamental = dcfAnalysis.getFundamentals();
         //adding forecast dates
         List<String> datesList = new ArrayList(fundamental.keySet());
         Collections.sort(datesList);
@@ -135,7 +134,7 @@ public class FirstAnalysisService {
             if(i < 2) {
                 yahooFundamental.setGrotheRate(avgGrotheRate);
             } else {
-                yahooFundamental.setGrotheRate(firstAnalysisDto.getGrotheRate());
+                yahooFundamental.setGrotheRate(dcfAnalysis.getGrotheRate());
             }
             //totalRevenue
             Double prevTr = i == 0 ?
@@ -155,8 +154,8 @@ public class FirstAnalysisService {
             }
 
             //Amortization
-            if(Objects.nonNull(yahooFundamental.getTotalRevenue()) && Objects.nonNull(firstAnalysisDto.getReconciledDepreciation())) {
-                yahooFundamental.setReconciledDepreciation(yahooFundamental.getTotalRevenue() * firstAnalysisDto.getReconciledDepreciation());
+            if(Objects.nonNull(yahooFundamental.getTotalRevenue()) && Objects.nonNull(dcfAnalysis.getReconciledDepreciation())) {
+                yahooFundamental.setReconciledDepreciation(yahooFundamental.getTotalRevenue() * dcfAnalysis.getReconciledDepreciation());
             }
 
             //Ebit

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class FirstAnalysisDto {
+public class DcfAnalysis {
 
     private String ticker;
 
@@ -18,7 +18,7 @@ public class FirstAnalysisDto {
 
     private Double capitalExpenditure;
 
-    public FirstAnalysisDto(String ticker, Map<String, YahooFundamental> fundamentals, Double grotheRate) {
+    public DcfAnalysis(String ticker, Map<String, YahooFundamental> fundamentals, Double grotheRate) {
         this.ticker = ticker;
         this.fundamentals = fundamentals;
         this.grotheRate = grotheRate;

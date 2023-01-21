@@ -1,7 +1,7 @@
 package com.example.finstrumental.controller;
 
-import com.example.finstrumental.dto.FirstAnalysisDto;
-import com.example.finstrumental.service.FirstAnalysisService;
+import com.example.finstrumental.dto.DcfAnalysis;
+import com.example.finstrumental.service.DcfAnalysisService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,16 +15,16 @@ import java.io.IOException;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("firstAnalysis")
+@RequestMapping("dcfAnalysis")
 @RequiredArgsConstructor
-public class FirstAnalysisRestController {
+public class DcfAnalysisRestController {
 
     @NonNull
-    private final FirstAnalysisService firstAnalysisService;
+    private final DcfAnalysisService dcfAnalysisService;
 
     @GetMapping("getFundamental/{ticker}")
-    public ResponseEntity<FirstAnalysisDto> getFundamental(@PathVariable("ticker") String ticker) throws IOException, ParseException {
-        return new ResponseEntity<>(firstAnalysisService.doAnslys(ticker), HttpStatus.OK);
+    public ResponseEntity<DcfAnalysis> getFundamental(@PathVariable("ticker") String ticker) throws IOException, ParseException {
+        return new ResponseEntity<>(dcfAnalysisService.doAnslys(ticker), HttpStatus.OK);
     }
 
 }

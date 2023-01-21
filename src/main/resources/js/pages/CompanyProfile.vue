@@ -40,7 +40,7 @@
             <company-chart :ticker="ticker"/>
         </v-row>
 
-      <first-analisys-table v-if="firstAnalisisData" :analysis-data="firstAnalisisData"/>
+      <dcf-analysis-table v-if="firstAnalisisData" :analysis-data="firstAnalisisData"/>
 
     </v-container>
 </template>
@@ -50,11 +50,11 @@ import DoubleRowLabelValue from "../components/DoubleRowLabelValue.vue"
 import CompanyChart from "../components/CompanyChart.vue"
 import http from "../http-common"
 import {consts} from "../constants";
-import FirstAnalisysTable from "../components/FirstAnalisysTable.vue";
+import DcfAnalysisTable from "../components/DcfAnalysisTable.vue";
 
 export default {
     name: "CompanyProfile",
-    components: {FirstAnalisysTable, CompanyChart, DoubleRowLabelValue},
+    components: {DcfAnalysisTable, CompanyChart, DoubleRowLabelValue},
     data() {
         return {
             ticker: this.$route.params.ticker,
@@ -73,7 +73,7 @@ export default {
             console.log(this.companyData)
         })
 
-        http(`firstAnalysis/getFundamental/${this.ticker}`).then(res => {
+        http(`dcfAnalysis/getFundamental/${this.ticker}`).then(res => {
           this.firstAnalisisData = res.data
         })
 
