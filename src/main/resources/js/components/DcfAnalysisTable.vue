@@ -97,7 +97,7 @@ export default {
 
         if(val) {
           if(index.property == "reconciledDepreciation" || index.property == "grotheRate" ) {
-            val = val.toFixed(2)
+            val = (val * 100).toFixed(2) + '%'
           } else {
             val = Number(val.toFixed()).toLocaleString('en-US')
           }
@@ -108,7 +108,7 @@ export default {
           let val = this.analysisData.fundamentals[d][index.property]
           if(val) {
             if(index.property == "grotheRate" ) {
-              row[d] = val.toFixed(2)
+              row[d] = (val * 100).toFixed(2) + '%'
             } else {
               row[d] = Number(val.toFixed()).toLocaleString('en-US')
             }
